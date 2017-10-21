@@ -33,3 +33,14 @@ Template.main.events({
     event.target.time.value = '';
   }
 });
+
+Template.todo.events({
+  'click .toggle-checked'(event){
+    Todos.update(this._id, {
+      $set:{checked: !this.checked}
+    });
+  },
+  'click .delete'(event){
+    Todos.remove(this._id);
+  }
+});
