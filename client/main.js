@@ -1,5 +1,9 @@
 import { Template } from 'meteor/templating';
+import {Accounts} from 'meteor/accounts-base';
 
+Accounts.ui.config({
+  passwordSignupFields: 'USERNAME_ONLY'
+});
 
 const tasks = [
   {text: 'Pickup kids from scool'},
@@ -26,7 +30,9 @@ Template.main.events({
 
     Todos.insert({
       text,
-      time
+      time,
+      owner: Meteor.userId(),
+      username: Meteor.user().username
     });
 
     event.target.text.value = '';
