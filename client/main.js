@@ -28,12 +28,7 @@ Template.main.events({
     const text = event.target.text.value;
     const time = event.target.time.value;
 
-    Todos.insert({
-      text,
-      time,
-      owner: Meteor.userId(),
-      username: Meteor.user().username
-    });
+    Meteor.call('todos.insert', text, time);
 
     event.target.text.value = '';
     event.target.time.value = '';
@@ -42,11 +37,9 @@ Template.main.events({
 
 Template.todo.events({
   'click .toggle-checked'(event){
-    Todos.update(this._id, {
-      $set:{checked: !this.checked}
-    });
+    Meteor.call('todos.setChecked', this._id, !this.checked);
   },
   'click .delete'(event){
-    Todos.remove(this._id);
+    Meteor.call('todos.remove', this._id);
   }
 });
