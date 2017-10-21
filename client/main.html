@@ -9,6 +9,11 @@
 <template name="main">
   <header>
     <h1>{{title}}</h1>
+    <form class="add-todo">
+      <input type="text" name="text" placeholder="Add todo...">
+      <input type="text" name="time" placeholder="Add time...">
+      <button type="submit">Add</button>
+    </form>
   </header>
   <ul>
     {{#each todos}}
@@ -18,5 +23,5 @@
 </template>
 
 <template name="todo">
-  <li>{{text}}</li>
+  <li><strong>{{time}}:</strong> {{text}}</li>
 </template>
