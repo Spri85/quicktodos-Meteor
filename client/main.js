@@ -5,6 +5,10 @@ Accounts.ui.config({
   passwordSignupFields: 'USERNAME_ONLY'
 });
 
+Template.main.onCreated(function mainOnCreated(){
+  Meteor.subscribe('todos');
+});
+
 const tasks = [
   {text: 'Pickup kids from scool'},
   {text: 'Go food shoping'},
@@ -41,5 +45,14 @@ Template.todo.events({
   },
   'click .delete'(event){
     Meteor.call('todos.remove', this._id);
+  },
+  'click .toggle-private'(){
+    Meteor.call('todos.setPrivate', this._id, !this.private);
   }
 });
+
+Template.todo.helpers({
+  isOwner(){
+    return this.owner === Meteor.userId();
+  }
+})
